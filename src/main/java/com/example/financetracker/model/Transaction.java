@@ -1,4 +1,4 @@
 package com.example.financetracker.model;
 
-public class Transaction git {
+public class Transaction {
 }
