@@ -24,6 +24,7 @@ public class FinanceTrackerApplication {
         SpringApplication.run(FinanceTrackerApplication.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner test1 (TransactionRepository repository) {
         return args -> {
@@ -39,6 +40,8 @@ public class FinanceTrackerApplication {
             repository.save(t1);
 
             List<Transaction> transactions = repository.findAll();
-            transactions.forEach(t -> System.out.println(t));        };
+            transactions.forEach(t -> System.out.println(t));
+        };
     }
+    */
 }
