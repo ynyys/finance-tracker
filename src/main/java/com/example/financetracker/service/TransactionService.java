@@ -1,5 +1,6 @@
 package com.example.financetracker.service;
 
+import com.example.financetracker.exception.TransactionNotFoundException;
 import com.example.financetracker.model.Transaction;
 import com.example.financetracker.repository.TransactionRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -24,11 +25,10 @@ public class TransactionService {
     }
 
     public Transaction getById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("No record found, try again."));
+        return repository.findById(id).orElseThrow(() -> new TransactionNotFoundException(id));
     }
 
     public Transaction update(Long id, Transaction transaction) {
-
         Transaction toUpdate = getById(id);
 
         toUpdate.setDescription(transaction.getDescription());
@@ -41,10 +41,9 @@ public class TransactionService {
     }
 
     public void delete(Long id) {
-        try {
-            repository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException("No record found, try again.");
+        if (!repository.existsById(id)) {
+            throw new TransactionNotFoundException(id);
         }
+        repository.deleteById(id);
     }
 }
